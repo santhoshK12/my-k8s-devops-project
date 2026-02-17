@@ -1,0 +1,18 @@
+name: K8s-Automation-Robot
+on:
+  push:
+    branches:
+      - main  # This tells the robot: "Run whenever I push code"
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout My Code
+        uses: actions/checkout@v4
+
+      - name: Verify Helm Is Ready
+        uses: azure/setup-helm@v3
+
+      - name: Simulation
+        run: echo "The GitHub Robot has successfully seen my code!"
