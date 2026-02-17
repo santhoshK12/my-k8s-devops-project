@@ -4,29 +4,15 @@ on:
     branches:
       - main
 
-# ADD THESE 3 LINES:
-permissions:
-  contents: read
-  packages: write
-      
-
 jobs:
   deploy-to-cluster:
-    runs-on: ubuntu-latest
+    # This tells GitHub to use the "my-laptop-runner" you just created
+    runs-on: self-hosted
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Helm
-        uses: azure/setup-helm@v3
-
-      # This step uses the Secret you just saved!
-      - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v3
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Deploy Chart
+      - name: Deploy to K8s
         run: |
+          # The robot just runs the command directly on your machine
           helm upgrade --install production-release . --namespace production --create-namespace
