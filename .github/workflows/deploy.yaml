@@ -4,6 +4,12 @@ on:
     branches:
       - main
 
+# ADD THESE 3 LINES:
+permissions:
+  contents: read
+  packages: write
+      
+
 jobs:
   deploy-to-cluster:
     runs-on: ubuntu-latest
